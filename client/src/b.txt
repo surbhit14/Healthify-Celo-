@@ -1,0 +1,1 @@
+DATAHUB_NODE_URL=https://celo-alfajores--rpc.datahub.figment.io/apikey/44e2158a49c1af9b20e8beb181031308/
