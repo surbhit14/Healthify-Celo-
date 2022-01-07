@@ -9,16 +9,18 @@ function Patient() {
     const [name, setName] = useState("")
     const [addr, setAddr] = useState("")
 
-    let contract
+    var contract
     let uid
     const addDoctor=async()=>{
-        let kit = ContractKit.newKitFromWeb3(web3)
-        contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
-        const t=await contract.methods.getDoctorInfo().send({
-            from:address
-        })
+        // let kit = ContractKit.newKitFromWeb3(web3)
+        // contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
+        // const t=await contract.methods.getDoctorInfo().send({
+        //     from:address
+        // })
+        console.log(contract)
     }
-      const getDoctor=async()=>{
+
+    const getDoctor=async()=>{
         let kit = ContractKit.newKitFromWeb3(web3)
         contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
         const t=await contract.methods.getDoctorInfo().call()
@@ -82,9 +84,6 @@ function Patient() {
             {address}
             {name}
             {addr}
-
-
-
             <button
             onClick={addDoctor}
         >
