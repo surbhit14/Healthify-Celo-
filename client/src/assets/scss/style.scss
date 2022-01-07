@@ -22,6 +22,7 @@ $theme-colors: ("info": #ffbc44,
 html,
 body {
   background-color: map.get($theme-colors, "black");
+  color: map.get($theme-colors, "light");
   font-family: 'Montserrat', sans-serif;
 }
 

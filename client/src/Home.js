@@ -1,24 +1,8 @@
-import { useContext } from "react";
-import { UserContext } from "./UserContext";
-import { useHistory } from "react-router-dom";
-
 import Layout from "./components/Layout";
 
 import Hospital from "./assets/img/hero1.svg";
 
 function Home() {
-  let history = useHistory();
-  const { address, web3, contract } = useContext(UserContext);
-  const rd = async () => {
-    // const t= await contract.methods.check(address).call()
-    // console.log(t)
-
-    const t = await contract.methods.Identify().call();
-    console.log(t);
-    if (t == 0) history.push("/register");
-    else if (t == 1) history.push("/patient");
-    else if (t == 2) history.push("/doctor");
-  };
   return (
     <Layout>
       <div className="text-dark" style={{ paddingTop: "40px" }}>

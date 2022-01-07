@@ -1,13 +1,27 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
+import { UserContext } from "../UserContext";
 import Logo from "../assets/img/healthify.png";
 
 export default function Layout(props) {
   const location = useLocation();
+  const { address, web3, contract } = useContext(UserContext);
+  var history = useHistory();
+
+  const rd = async () => {
+    // const t= await contract.methods.check(address).call()
+    // console.log(t)
+
+    const t = await contract.methods.Identify().call();
+    console.log(t);
+    if (t == 0) history.push("/register");
+    else if (t == 1) history.push("/patient");
+    else if (t == 2) history.push("/doctor");
+  };
 
   function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -42,13 +56,12 @@ export default function Layout(props) {
               <span className="ml-3">healthify</span>
             </Link>
             {location.pathname === "/" && (
-              <Link
-                onClick={() => setIsOpen(false)}
-                to="/"
+              <div
+                onClick={rd}
                 className="p-3 btn btn-outline-primary font-weight-bold btn-lg "
               >
                 Get Started Now
-              </Link>
+              </div>
             )}
           </div>
         </Navbar>
@@ -66,6 +79,7 @@ export default function Layout(props) {
           animate={{ opacity: 1, y: 20 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 2.5 }}
+          style={{ paddingTop: "130px" }}
           className={
             props.contained ? "container overflow-hidden" : "overflow-hidden"
           }
