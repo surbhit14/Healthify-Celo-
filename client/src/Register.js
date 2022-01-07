@@ -3,8 +3,6 @@ import { UserContext } from "./UserContext";
 import { useHistory } from "react-router-dom";
 
 import Layout from "./components/Layout";
-import CreatePatient from "./components/CreatePatient";
-import CreateDoctor from "./components/CreateDoctor";
 
 let ContractKit = require("@celo/contractkit");
 
