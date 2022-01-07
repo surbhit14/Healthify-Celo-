@@ -1,31 +1,25 @@
 import { useContext,useEffect,useState} from 'react';
 import { UserContext } from "./UserContext";
+import {useHistory } from 'react-router-dom';
 let ContractKit = require("@celo/contractkit")
 
 function Register() {
-    const {id,address,web3,contract,update}= useContext(UserContext);
-
+    const {address,web3,contract}= useContext(UserContext);
+    let history=useHistory();
     const register= async function () {
-    const receipt=await contract.methods.addPatientInfo(3,"telly","addr2",20,"A+",5).send({
+    const receipt=await contract.methods.addPatientInfo(25,"fifrefel","adefefr5",20,"A+").send({
         from:address
     })
     console.log(receipt)
-    // const i=await contract.methods.addresstoId(address).call();
-    // update(i)
 }
 
     
-//     const register=async()=>{   
-// const receipt=await contract.methods.addPatient(address,"telly",20).send({
-//     from:address
-// })
+    const reg=function(){
+        history.push('/patient');
+    }
 
-// console.log(receipt)
-// const t= await contract.methods.check(address).call()
-// console.log("final "+t)
 
-    
-    return (
+return (
         <div>
             {address}
             Register
@@ -34,6 +28,12 @@ function Register() {
             onClick={register}
         >
             Register
+        </button>
+
+        <button
+            onClick={reg}
+        >
+            Profile
         </button>
         </div>
 

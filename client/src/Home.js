@@ -4,9 +4,8 @@ import {useHistory } from 'react-router-dom';
 
 function Home() {
 
-    
     let history=useHistory();
-    const {id,address,web3,contract}= useContext(UserContext);
+    const {address,web3,contract}= useContext(UserContext);
     const rd=async()=>{
         // const t= await contract.methods.check(address).call()
         // console.log(t)
@@ -24,7 +23,7 @@ function Home() {
 
         <div>
             This is the home page
-            {id}
+            {address}
             <button
             onClick={rd}
             >Get Started</button>

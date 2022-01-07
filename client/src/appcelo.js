@@ -54,8 +54,6 @@ function Appcelo() {
         setBalances({
             cUSD: cUSDBalance
           })
-
-     
       }
       
       const showTxHash = async function(transactionHash){

@@ -1,67 +1,66 @@
+import { useContext,useState,useEffect} from 'react';
+import { UserContext } from "./UserContext";
+import test2 from "./contract/Test2.json"
+let ContractKit = require("@celo/contractkit")
 
-import React, { useState, useEffect } from 'react';
-import dotenv from 'dotenv'
-import Vault from './contract/Vault.json'
-import Web3 from "web3";
-import { newKitFromWeb3,CeloContract } from "@celo/contractkit";
+function Patient() {
+    const {address,web3,contract1}= useContext(UserContext);
+ 
+    const [name, setName] = useState("")
+    const [addr, setAddr] = useState("")
+    const [contract, setContract] = useState(contract1)
 
-const web3 = new Web3("https://alfajores-forno.celo-testnet.org")
-const kit = newKitFromWeb3(web3);
+    let uid
+    
 
-// LOAD ENV VA
-dotenv.config()
+    const addDoctor=async()=>{
+        console.log(contract);
+    }
 
-console.log(process.env.REACT_APP_VAULT_ADDRESS)
-const VaultO = new kit.web3.eth.Contract(Vault.abi, process.env.REACT_APP_VAULT_ADDRESS)
+    // const getDoctor=async()=>{
+    //     console.log(address);
+    // }
 
-function App() {
+    // const getTreatment=async()=>{
+    //     console.log(address);
+    // }
 
-  const [balances, setBalances] = useState({ CELO: 0, cUSD: 0});
-  const connect = async() => {
-   
-    const nm= await VaultO.methods.getsender()
-    console.log("Sender is "+nm)
-    console.log(nm)
-    getBalanceHandle()
-  }
+    const getDetail=async()=>{
+        console.log(address);
+    let kit = ContractKit.newKitFromWeb3(web3)
+    const ct=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
+    setContract(ct)
+    const t=await contract.methods.Identify().call();
 
+    if(t!=0){
+        uid=await contract.methods.addresstoId(address).call();
+        console.log(web3);
+        const res= await contract.methods.getPatientInfo(uid).call();
+        setName(res[0])
+        setAddr(res[1])
+        console.log(res)
+    }
+    }
 
-  const update = () => {
-    // console.log(process.env.REACT_APP_PRIVATE_KEY)
-    getBalanceHandle()
-  }
+    // getDetail()
+    useEffect(async()=>{
+        if(web3)
+        getDetail()
+    }, [contract])
+    return (
+        <div>
+            {address}
+            {name}
+            {addr}
 
-  const getBalanceHandle = async () => {
-    const goldtoken = await kit.contracts.getGoldToken()
-    let stabletoken = await kit.contracts.getStableToken()
-    // const totalLockedBalance = await VaultO.methods.getTokenTotalLockedBalance(goldtoken._address).call()
-    // const totalBalance = await kit.getTotalBalance(process.env.REACT_APP_ADDRESS)
-
-    let CELO = await goldtoken.balanceOf("0xE557258304CC26B53067d8d4e5abde59B1F4CB3d")
-    let cUSD = await stabletoken.balanceOf("0xE557258304CC26B53067d8d4e5abde59B1F4CB3d")
-    // console.log(process.env.REACT_APP_VAULT_ADDRESS)
-    // console.log(process.env.REACT_APP_ADDRESS)
-
-    // const { CELO, cUSD } = totalBalance
-    setBalances({
-      CELO: kit.web3.utils.fromWei(CELO.toString()),
-      cUSD: kit.web3.utils.fromWei(cUSD.toString()),
-      // Vault: kit.web3.utils.fromWei(totalLockedBalance.toString())
-    })
-
-  }
-
-  useEffect(update, [])
-  return (
-    <div>
-      <h1>DATA WALLET</h1>
-      <ul>
-      <button onClick={connect}>Click here to connect your wallet</button>
-        <li>CELO BALANCE IN ACCOUNT: {balances.CELO}</li>
-        <li>cUSD BALANCE IN ACCOUNT: {balances.cUSD}</li>
-      </ul>
-    </div>
-  );
+            <button
+            onClick={addDoctor}>
+            Add Doctor
+        </button>
+           
+        </div>
+        
+    )
 }
 
-export default App;
+export default Patient
