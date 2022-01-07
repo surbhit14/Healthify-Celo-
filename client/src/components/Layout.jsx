@@ -39,7 +39,9 @@ export default function Layout(props) {
             paddingTop: "60px",
             paddingBottom: "30px",
           }}
-          className="shadow d-flex justify-content-between bg-black align-items-center pl-md-5 pl-4"
+          className={`shadow d-flex justify-content-between  align-items-center pl-md-5 pl-4 ${
+            location.pathname === "/register" ? "bg-dark" : "bg-black"
+          } `}
           collapseOnSelect
           expand="lg"
           expanded={isOpen}
