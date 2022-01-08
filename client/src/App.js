@@ -6,7 +6,7 @@ import Home from "./Home";
 import Register from "./Register";
 import Doctor from "./Doctor";
 import Patient from "./Patient";
-import test2 from "./contract/Test2.json";
+import test2 from "./contract/Test.json";
 
 import "./assets/scss/style.scss";
 
@@ -38,7 +38,7 @@ function App() {
 
         const contr = new kit.web3.eth.Contract(
           test2,
-          "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
+          "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
         );
         console.log(kit.defaultAccount);
         setWeb3(web3);

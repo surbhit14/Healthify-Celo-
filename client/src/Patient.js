@@ -1,39 +1,58 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
-import test2 from "./contract/Test2.json";
+import test2 from "./contract/Test.json";
 let ContractKit = require("@celo/contractkit");
 
 function Patient() {
   const { address, web3, contract1 } = useContext(UserContext);
 
-  const [did, setDid] = useState("");
-
+  const [did, setDid] = useState(0);
+  // const [uid, setUid] = useState(0);
   const [name, setName] = useState("");
   const [addr, setAddr] = useState("");
-  const [phn, setPhn] = useState("");
+  const [phn, setPhn] = useState(0);
   const [bld, setBld] = useState("");
   const [treatments, setTreatments] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [doctorDet, setDoctorDet] = useState([]);
+
   var contract;
-  let uid;
-  const addDoctor = async (did) => {
+  var uid;
+  const addDoctor = async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
       test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
+      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
-    const t = await contract.methods.addDoctor_Patient().send({
+    uid = await contract.methods.addresstoId(address).call();
+    console.log(uid)
+    console.log(did)
+    console.log(contract);
+    
+    const t = await contract.methods.addDoctor_Patient(did,uid).send({
       from: address,
     });
-    console.log(contract);
+
+    setDoctors([...doctors,did])
+    
+
   };
 
   const getDoctor = async () => {
-    // let kit = ContractKit.newKitFromWeb3(web3)
-    // contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
-    const t = await contract.methods.getDoctorInfo().call();
-    return t;
+    let kit = ContractKit.newKitFromWeb3(web3)
+    contract=new kit.web3.eth.Contract(test2,"0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C")
+        doctors.forEach(async (i) => {
+        var x=await contract.methods.getDoctorInfo(i).call();
+        console.log(x);
+        setDoctorDet([...doctorDet,x])
+        
+      });
+      console.log(doctorDet)
+    // const t = await contract.methods.getDoctorInfo(did).call();
+    // return t;
   };
+
+
 
   const getTreatment = async () => {
     // let kit = ContractKit.newKitFromWeb3(web3);
@@ -72,7 +91,7 @@ function Patient() {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
       test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
+      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     const t = await contract.methods.Identify().call();
 
@@ -88,13 +107,22 @@ function Patient() {
       setTreatments(res[4]);
       setDoctors(res[5]);
       console.log(res);
+      // doctors.forEach(async (i) => {
+      //   var x=await getDoctor(i);
+      //   console.log(x);
+      // });
+
+      console.log("abc")
+      // await getDoctor(101);
+      // await getDoctor();
     }
   };
 
   // getDetail()
   useEffect(async () => {
     if (web3) getDetail();
-  }, []);
+  },[address]);
+
   return (
     <div>
       <div className="text-secondary text-left m-5">
@@ -112,10 +140,13 @@ function Patient() {
         </div>
       </div>
       <br />
-
+      <button className="btn btn-primary mx-5" onClick={getDoctor}>
+          Get Doctor
+        </button>
       <div className="text-secondary m-5">
         Your Doctors
-        {doctors.map((did) => getDoctor(did))}
+        {doctors}
+        {/* {doctors.map((did) => getDoctor(did))} */}
         <div className="d-flex">
           <div className="d-flex align-items-center justify-content-center">
             <div className="mt-4 mx-5 btn text-left card card-body bg-dark text-white rounded col-3">

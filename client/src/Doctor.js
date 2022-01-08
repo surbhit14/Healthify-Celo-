@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "./UserContext";
-import test2 from "./contract/Test2.json";
+import test2 from "./contract/Test.json";
 
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
@@ -64,10 +64,10 @@ function Doctor() {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
       test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
+      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     const t = await contract.methods.Identify().call();
-
+    console.log(t)
     console.log(contract);
     if (t != 0) {
       uid = await contract.methods.addresstoId(address).call();
@@ -82,7 +82,7 @@ function Doctor() {
   // getDetail()
   useEffect(() => {
     if (web3) getDetail();
-  }, []);
+  }, [name]);
 
   return (
     <Layout>
@@ -90,8 +90,6 @@ function Doctor() {
         {address}
         {name}
         {addr}
-
-        {/* <button onClick={addDoctor}>Add Doctor</button> */}
       </div>
 
       <section>
