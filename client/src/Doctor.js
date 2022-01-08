@@ -4,6 +4,9 @@ import test2 from "./contract/Test.json";
 
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
+let erc20Abi = require("./erc20Abi.json");
+const ERC20_DECIMALS = 18
+const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
 
 function Doctor() {
   const pidInputRef = useRef();
@@ -16,48 +19,55 @@ function Doctor() {
 
   const [name, setName] = useState("");
   const [addr, setAddr] = useState("");
+  const [prt, setPrt] = useState("");
+  const [aoe, setAoe] = useState("");
+  const [pno, setPno] = useState(0);
+  const [patients, setPatients] = useState([]);
+  const [patientDet, setPatientDet] = useState([]);
+  const [balances, setBalances] = useState({cUSD: 0});
 
   let contract;
   let uid;
 
-  function addTreatment() {
+  async function addTreatment() {
     var pid = pidInputRef.current.value;
     var did = didInputRef.current.value;
     var diagnosis = diagnosisInputRef.current.value;
     var bill = billInputRef.current.value;
     var medicine = medicineInputRef.current.value;
 
+    const t = await contract.methods.TreatPatient(pid,diagnosis,bill,medicine).send({
+      from: address,
+    });
     console.log(pid, did, diagnosis, bill, medicine);
 
     // Call API to create patient
   }
 
-  const getPatient = async (pid) => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
-    );
-    const t = await contract.methods.getPatientInfo_Doc(pid).call();
-    return t;
+  const getPatient = async () => {
+    let kit = ContractKit.newKitFromWeb3(web3)
+    var arr=[]
+    contract=new kit.web3.eth.Contract(test2,"0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C")
+        patients.forEach(async (i) => {
+        var x=await contract.methods.getPatientInfo_Doc(i).call();
+        // console.log(x);
+        arr.push(x)
+      });
+      setPatientDet(arr)
+      console.log(patientDet)
   };
 
-  const getTreatment = async (tid) => {
+  const getBalance = async function () {
     let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
-    );
-    const t = await contract.methods.getTreatmentDetails(tid).call();
-    return t;
+    const totalBalance = await kit.getTotalBalance(kit.defaultAccount)
+    const cUSDBalance = totalBalance.cUSD.shiftedBy(-ERC20_DECIMALS).toFixed(2)
+    
+    console.log(totalBalance)
+    setBalances({
+        cUSD: cUSDBalance
+      })
   };
 
-  //   const getBalance = async function () {
-  //     let kit = ContractKit.newKitFromWeb3(web3);
-  //     const totalBalance = await kit.getTotalBalance(kit.defaultAccount);
-  //     const cUSDBalance = totalBalance.cUSD.shiftedBy(-ERC20_DECIMALS).toFixed(2);
-  //     console.log(cUSDBalance);
-  //   };
 
   const getDetail = async () => {
     console.log(address);
@@ -74,15 +84,19 @@ function Doctor() {
       console.log(web3);
       const res = await contract.methods.getDoctorInfo(uid).call();
       setName(res[0]);
-      setAddr(res[1]);
+      setAddr(res[4]);
+      setPrt(res[1]);
+      setAoe(res[2]);
+      setPno(res[3]);
+      setPatients(res[5]);
       console.log(res);
+      getBalance(); 
     }
   };
 
-  // getDetail()
   useEffect(() => {
     if (web3) getDetail();
-  }, [name]);
+  }, [address]);
 
   return (
     <Layout>
@@ -91,6 +105,11 @@ function Doctor() {
         {name}
         {addr}
       </div>
+
+      <button className="btn btn-primary mx-5" onClick={getPatient}>
+          Get Patient Detials
+        </button>
+
 
       <section>
         <div className="text-dark container" style={{ paddingTop: "150px" }}>
