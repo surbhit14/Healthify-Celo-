@@ -6,22 +6,28 @@ import Layout from "./components/Layout";
 
 let ContractKit = require("@celo/contractkit");
 
-function Register() {
-  const [formToggle, setFormToggle] = useState(false);
 
+function Register() {
+  const { address, web3, contract } = useContext(UserContext);
+  const [formToggle, setFormToggle] = useState(false);
+  let history = useHistory();
+
+  const patientIdInputRef=useRef();
   const patientNameInputRef = useRef();
   const patientAddressInputRef = useRef();
   const patientPhoneInputRef = useRef();
-  const patientAgeInputRef = useRef();
+  // const patientAgeInputRef = useRef();
   const patientBloodGroupInputRef = useRef();
 
+  const doctorIdInputRef=useRef();
   const doctorNameInputRef = useRef();
   const doctorAddressInputRef = useRef();
   const doctorPhoneInputRef = useRef();
   const doctorPracticeInputRef = useRef();
   const doctorExpertiseInputRef = useRef();
 
-  function createDoctor() {
+  async function createDoctor() {
+    var doctorId=doctorIdInputRef.current.value;
     var doctorName = doctorNameInputRef.current.value;
     var doctorAddress = doctorAddressInputRef.current.value;
     var doctorPhone = doctorPhoneInputRef.current.value;
@@ -36,36 +42,56 @@ function Register() {
       doctorExpertise
     );
 
+    const receipt = await contract.methods
+    .addDoctor(doctorId,doctorName,doctorPractice,doctorExpertise,doctorPhone,doctorAddress)
+    .send({
+      from: address,
+    });
+  console.log(receipt);
+
     // Call API to create doctor
+    history.push("/doctor");
   }
-  function createPatient() {
+
+ async function createPatient() {
+    var patientId=patientIdInputRef.current.value;
     var patientName = patientNameInputRef.current.value;
     var patientAddress = patientAddressInputRef.current.value;
     var patientPhone = patientPhoneInputRef.current.value;
-    var patientAge = patientAgeInputRef.current.value;
+    // var patientAge = patientAgeInputRef.current.value;
     var patientBloodGroup = patientBloodGroupInputRef.current.value;
+
+  
+
 
     console.log(
       patientName,
       patientAddress,
       patientPhone,
-      patientAge,
       patientBloodGroup
     );
+
+    const receipt = await contract.methods
+    .addPatientInfo(patientId,patientName,patientAddress, patientPhone, patientBloodGroup)
+    .send({
+      from: address,
+    });
+  console.log(receipt);
+  history.push("/patient");
 
     // Call API to create patient
   }
 
-  const { address, web3, contract } = useContext(UserContext);
-  let history = useHistory();
-  const register = async function () {
-    const receipt = await contract.methods
-      .addPatientInfo(25, "fifrefel", "adefefr5", 20, "A+")
-      .send({
-        from: address,
-      });
-    console.log(receipt);
-  };
+
+
+  // const register = async function () {
+  //   const receipt = await contract.methods
+  //     .addPatientInfo(25, "fifrefel", "adefefr5", 20, "A+")
+  //     .send({
+  //       from: address,
+  //     });
+  //   console.log(receipt);
+  // };
 
   const reg = function () {
     history.push("/patient");
@@ -76,13 +102,13 @@ function Register() {
       <section>
         <div className="text-center">
           <div>{address}</div>
-          <button
+          {/* <button
             type="button"
             className="btn btn-outline-primary"
             onClick={register}
           >
             Register
-          </button>
+          </button> */}
           <button
             type="button"
             className="btn btn-outline-primary"
@@ -108,6 +134,19 @@ function Register() {
             </div>
             <section className="pb-5 mb-5">
               <form>
+              <div className="form-group">
+                  <label htmlFor="inputId" className="text-secondary">
+                    Id
+                  </label>
+                  <input
+                    ref={doctorIdInputRef}
+                    type="text"
+                    className="p-3 d-flex bg-dark text-white  rounded focus-none"
+                    style={{ width: "100%" }}
+                    id="inputId"
+                    placeholder="Doctor Id"
+                  />
+                </div>
                 <div className="form-group">
                   <label htmlFor="inputName" className="text-secondary">
                     Name
@@ -211,6 +250,21 @@ function Register() {
             </div>
             <section className="pb-5 mb-5">
               <form>
+              <div className="form-group">
+                  <label htmlFor="inputId" className="text-secondary">
+                    Id
+                  </label>
+                  <input
+                    ref={patientIdInputRef}
+                    type="text"
+                    className="p-3 d-flex bg-dark text-white  rounded focus-none"
+                    style={{ width: "100%" }}
+                    id="inputId"
+                    placeholder="Patient Id"
+                  />
+                </div>
+
+
                 <div className="form-group">
                   <label htmlFor="inputName" className="text-secondary">
                     Name
@@ -282,7 +336,7 @@ function Register() {
                   </select>
                 </div>
 
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label htmlFor="inputAge" className="text-secondary">
                     Age
                   </label>
@@ -296,7 +350,7 @@ function Register() {
                     id="inputAge"
                     placeholder="Age - Eg. 25"
                   />
-                </div>
+                </div> */}
               </form>
 
               <div

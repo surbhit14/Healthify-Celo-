@@ -6,52 +6,38 @@ let ContractKit = require("@celo/contractkit");
 function Patient() {
   const { address, web3, contract1 } = useContext(UserContext);
 
+    const [name, setName] = useState("")
+    const [addr, setAddr] = useState("")
+    const [phn, setPhn] = useState("")
+    const [bld, setBld] = useState("")
+    const [treatments, setTreatments] = useState([])
+    const [doctors, setDoctors] = useState([])
     var contract
     let uid
-    const addDoctor=async()=>{
-        // let kit = ContractKit.newKitFromWeb3(web3)
-        // contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
-        // const t=await contract.methods.getDoctorInfo().send({
-        //     from:address
-        // })
+    const addDoctor=async(did)=>{
+        let kit = ContractKit.newKitFromWeb3(web3)
+        contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
+        const t=await contract.methods.addDoctor_Patient().send({
+            from:address
+        })
         console.log(contract)
     }
 
     const getDoctor=async()=>{
-        let kit = ContractKit.newKitFromWeb3(web3)
-        contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
+        // let kit = ContractKit.newKitFromWeb3(web3)
+        // contract=new kit.web3.eth.Contract(test2,"0x6499cb27999Ec4a90339f3895a87b3a084392F20")
         const t=await contract.methods.getDoctorInfo().call()
         return t;
     }
 
-  let contract;
-  let uid;
-  const addDoctor = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
-    );
-    const t = await contract.methods.getDoctorInfo().send({
-      from: address,
-    });
-  };
-  const getDoctor = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
-    );
-    const t = await contract.methods.getDoctorInfo().call();
-    return t;
-  };
+
 
   const getTreatment = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
-    );
+    // let kit = ContractKit.newKitFromWeb3(web3);
+    // contract = new kit.web3.eth.Contract(
+    //   test2,
+    //   "0x6499cb27999Ec4a90339f3895a87b3a084392F20"
+    // );
     const t = await contract.methods.getTreatmentDetails().call();
     return t;
   };
@@ -94,6 +80,10 @@ function Patient() {
       const res = await contract.methods.getPatientInfo(uid).call();
       setName(res[0]);
       setAddr(res[1]);
+      setPhn(res[2]);
+      setBld(res[3]);
+      setTreatments(res[4]);
+      setDoctors(res[5])
       console.log(res);
     }
   };
@@ -107,7 +97,20 @@ function Patient() {
       {address}
       {name}
       {addr}
+        <br />
 
+        Your Doctors
+
+        {doctors.map((did) => (
+                getDoctor(did)
+            ))   
+        }
+        <br />
+        Your Treatments
+        
+        <br />
+
+        Enter doctor id
       <button onClick={addDoctor}>Add Doctor</button>
     </div>
   );
