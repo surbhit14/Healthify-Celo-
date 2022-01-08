@@ -39,7 +39,7 @@ export default function Layout(props) {
             paddingTop: "60px",
             paddingBottom: "30px",
           }}
-          className={`shadow d-flex justify-content-between  align-items-center pl-md-5 pl-4 ${
+          className={`shadow px-5 d-flex justify-content-between  align-items-center pl-md-5 pl-4 ${
             location.pathname === "/register" ? "bg-dark" : "bg-black"
           } `}
           collapseOnSelect
@@ -55,7 +55,7 @@ export default function Layout(props) {
               className="navbar-brand font-weight-bold text-primary mr-md-5  mr-3"
             >
               <img height="50px" src={Logo} alt="" srcset="" />
-              <span className="ml-3">healthify</span>
+              <span style={{ marginLeft: "15px" }}>healthify</span>
             </Link>
             {location.pathname === "/" && (
               <div

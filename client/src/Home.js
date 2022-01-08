@@ -5,7 +5,7 @@ import Hospital from "./assets/img/hero1.svg";
 function Home() {
   return (
     <Layout>
-      <div className="text-dark" style={{ paddingTop: "40px" }}>
+      <div className="text-dark">
         <div className="">
           <div className="d-flex bg-dark px-5 pb-3 justify-content-between mt-5 pt-5">
             <iframe
@@ -22,7 +22,7 @@ function Home() {
             <img
               style={{
                 zIndex: "0",
-                height: "40em",
+                height: "30rem",
                 width: "70em",
                 marginBottom: "-30rem",
               }}
@@ -36,6 +36,43 @@ function Home() {
           Healthify is the next generation of healthcare. The platform runs on
           smart contracts at the blockchain level.
         </h2>
+
+        <section className="vh-100  d-flex flex-column-reverse flex-md-row align-justify-center mt-4">
+          <div className="d-flex align-items-center justify-content-center w-100 mt-4 mt-md-0">
+            <div className="px-md-5">
+              <h2 style={{ fontSize: "5em" }} className="text-white fw-bold">
+                EHR on the Fly
+              </h2>
+              <p className="pt-3 h5 text-secondary">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                aperiam error iste aspernatur illo, ipsum itaque voluptate ab
+                fugiat explicabo beatae eveniet optio vero nemo nulla quae non
+                voluptatem aut.
+              </p>
+            </div>
+          </div>
+          <div className="bg-dark rounded-circle mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
+            <img height="auto" width="65%" src={Hospital} alt="" />
+          </div>
+        </section>
+        <section className="vh-100  d-flex flex-column-reverse flex-md-row align-justify-center mt-4">
+          <div className="bg-dark rounded-circle mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
+            <img height="auto" width="65%" src={Hospital} alt="" />
+          </div>
+          <div className="d-flex align-items-center justify-content-center w-100 mt-4 mt-md-0">
+            <div className="px-md-5">
+              <h2 style={{ fontSize: "5em" }} className="text-white fw-bold">
+                EHR on the Fly
+              </h2>
+              <p className="pt-3 h5 text-secondary">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                aperiam error iste aspernatur illo, ipsum itaque voluptate ab
+                fugiat explicabo beatae eveniet optio vero nemo nulla quae non
+                voluptatem aut.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </Layout>
   );
