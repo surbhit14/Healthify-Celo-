@@ -118,7 +118,7 @@ function Home() {
             </div>
           </div>
           <div className="bg-dark   mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
-            <img height="auto" width="100%" src="/ethereum.gif" alt="" />
+            <img height="auto" width="100%" src="/blocks1.gif" alt="" />
           </div>
         </section>
 
