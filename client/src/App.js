@@ -41,7 +41,7 @@ function App() {
             test2,
             "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
           );
-          console.log(kit.defaultAccount);
+          // console.log(kit.defaultAccount);
           setWeb3(web3);
           // const i=await contr.methods.addresstoId(kit.defaultAccount).call();
           setAddress(kit.defaultAccount);
@@ -50,8 +50,6 @@ function App() {
             erc20Abi,
             cUSDContractAddress
           );
-
-          console.log(cUSDcontract);
         } catch (error) {
           console.log(`⚠️ ${error}.`);
         }
