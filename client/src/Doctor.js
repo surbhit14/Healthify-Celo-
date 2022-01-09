@@ -89,7 +89,7 @@ function Doctor() {
     const t = await contract.methods.Identify().call();
     console.log(t);
     console.log(contract);
-    if (t != 0) {
+    if (t !== 0) {
       uid = await contract.methods.addresstoId(address).call();
       console.log(web3);
       const res = await contract.methods.getDoctorInfo(uid).call();
@@ -110,11 +110,59 @@ function Doctor() {
 
   return (
     <Layout>
-      <dive className="mt-5 pt-5 d-flex justify-content-center align-items-center">
-        <button className="btn btn-primary mx-5" onClick={getPatient}>
-          Get Patient Detials
-        </button>
-      </dive>
+      <section className="container mt-5 pt-5">
+        <div className="d-md-flex d-block align-items-start justify-content-center">
+          <div className="m-3 rounded col-md-4 col-12 card card-body bg-black">
+            <div className="d-md-flex d-block">
+              <div className="m-4 col-md-4 d-flex align-items-center justify-content-center">
+                <img
+                  src="/avatar.png"
+                  style={{ borderRadius: "100%" }}
+                  className="img-fluid "
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div className="col-md-8 col-12">
+                <div className="text-secondary text-start m-5">
+                  <div>
+                    <h6>Patient</h6>
+                    <h3 className="fw-bold text-primary">{name}</h3>
+                  </div>
+                  <div className="my-2">
+                    <h6>Address</h6>
+                    <h3 className="fw-bold text-primary">{addr}</h3>
+                  </div>
+                  <div className="my-2">
+                    <h6>Practice</h6>
+                    <h3 className="fw-bold text-primary">{prt}</h3>
+                  </div>
+                  <div className="my-2">
+                    <h6>Area of Expertise</h6>
+                    <h3 className="fw-bold text-primary">{aoe}</h3>
+                  </div>
+                  <div>
+                    <h6>Phone</h6>
+                    <h3 className="fw-bold text-primary">{pno}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="m-3 p-5 rounded col-md-3 col-12 card card-body bg-black  ">
+            <div className="text-secondary text-start ">
+              <button
+                type="button"
+                className="btn btn-lg d-block btn-primary my-3  fw-bold"
+                onClick={getPatient}
+              >
+                Get Patient Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section>
         <div className="text-dark container" style={{ paddingTop: "150px" }}>
