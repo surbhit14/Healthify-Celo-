@@ -66,9 +66,9 @@ function Patient() {
       var x = await contract.methods.getTreatmentDetails(i).call();
       treatmentDetailsArray.push(Object.values(x));
     });
-    
+
     setTreatmentDet(treatmentDetailsArray);
-    console.log(treatmentDet)
+    console.log(treatmentDet);
   };
 
   const getBalance = async function () {
@@ -127,11 +127,11 @@ function Patient() {
 
       getBalance();
     }
-    }, [address,treatmentDet,doctorDet]);
+  }, [address, treatmentDet, doctorDet]);
 
   return (
     <Layout>
-      <div className="mt-5 container">
+      <div className="mt-5 container pt-5">
         <div className="d-md-flex d-block align-items-start justify-content-center">
           <div className="m-3 rounded col-md-4 col-12 card card-body bg-black">
             <div className="d-md-flex d-block">
@@ -275,7 +275,7 @@ function Patient() {
                   onClick={addDoctor}
                   style={{ width: "100%" }}
                 >
-                  Add Doctor 
+                  Add Doctor
                 </button>
               </div>
             </section>

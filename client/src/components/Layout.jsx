@@ -45,7 +45,7 @@ export default function Layout(props) {
             paddingTop: "60px",
             paddingBottom: "30px",
           }}
-          className={`fixed-top shadow px-5 d-flex justify-content-between  align-items-center pl-md-5 pl-4 ${
+          className={`fixed-top shadow px-md-4 px-3 d-flex justify-content-between  align-items-center pl-md-5 pl-4 ${
             location.pathname === "/register" ? "bg-dark" : "bg-black"
           } `}
         >
