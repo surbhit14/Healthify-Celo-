@@ -165,7 +165,7 @@ function Patient() {
               </div>
               <button
                 type="button"
-                className="btn btn-lg d-block btn-primary my-3 fw-bold"
+                className="btn btn-lg d-block btn-primary my-3 fw-bold text-start"
                 onClick={() => getDoctor()}
               >
                 Get Doctor
@@ -173,7 +173,7 @@ function Patient() {
 
               <button
                 type="button"
-                className="btn btn-lg d-block btn-primary my-3  fw-bold"
+                className="btn btn-lg d-block btn-primary my-3  fw-bold text-start"
                 onClick={getTreatment}
               >
                 Get Treatments
@@ -265,11 +265,11 @@ function Patient() {
                 />
                 <button
                   type="button"
-                  className="mt-2 btn btn-primary btn-lg d-block fw-bold"
+                  className="mt-2 btn btn-primary btn-lg d-block fw-bold text-start"
                   onClick={addDoctor}
                   style={{ width: "100%" }}
                 >
-                  Add Doctor ➕
+                  Add Doctor 
                 </button>
               </div>
             </section>
