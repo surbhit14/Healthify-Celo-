@@ -30,6 +30,12 @@ function Doctor() {
   let uid;
 
   async function addTreatment() {
+    let kit = ContractKit.newKitFromWeb3(web3);
+    contract = new kit.web3.eth.Contract(
+      test2,
+      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
+    );
+
     var pid = pidInputRef.current.value;
     var did = didInputRef.current.value;
     var diagnosis = diagnosisInputRef.current.value;
