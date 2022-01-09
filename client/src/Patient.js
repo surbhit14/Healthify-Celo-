@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import test2 from "./contract/Test.json";
+import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
 let erc20Abi = require("./erc20Abi.json");
-const ERC20_DECIMALS = 18
-const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
+const ERC20_DECIMALS = 18;
+const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
+
 function Patient() {
   const { address, web3, contract1 } = useContext(UserContext);
 
@@ -18,7 +20,7 @@ function Patient() {
   const [doctors, setDoctors] = useState([]);
   const [doctorDet, setDoctorDet] = useState([]);
   const [treatmentDet, setTreatmentDet] = useState([]);
-  const [balances, setBalances] = useState({cUSD: 0});
+  const [balances, setBalances] = useState({ cUSD: 0 });
 
   var contract;
   var uid;
@@ -29,33 +31,32 @@ function Patient() {
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     uid = await contract.methods.addresstoId(address).call();
-    console.log(uid)
-    console.log(did)
+    console.log(uid);
+    console.log(did);
     console.log(contract);
-    
-    const t = await contract.methods.addDoctor_Patient(did,uid).send({
+
+    const t = await contract.methods.addDoctor_Patient(did, uid).send({
       from: address,
     });
 
-    setDoctors([...doctors,did])
-    
-
+    setDoctors([...doctors, did]);
   };
 
   const getDoctor = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3)
-    var arr=[]
-    contract=new kit.web3.eth.Contract(test2,"0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C")
-        doctors.forEach(async (i) => {
-        var x=await contract.methods.getDoctorInfo(i).call();
-        // console.log(x);
-        arr.push(x)
-      });
-      setDoctorDet(arr)
-      console.log(doctorDet)
+    let kit = ContractKit.newKitFromWeb3(web3);
+    var doctorDetailsArray = [];
+    contract = new kit.web3.eth.Contract(
+      test2,
+      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
+    );
+    doctors.forEach(async (i) => {
+      var x = await contract.methods.getDoctorInfo(i).call();
+      // console.log(x);
+      doctorDetailsArray.push(x);
+    });
+    setDoctorDet(doctorDetailsArray);
+    console.log(doctorDet);
   };
-
-
 
   const getTreatment = async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
@@ -63,26 +64,26 @@ function Patient() {
       test2,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
-    var arr=[]
+    var treatmentDetailsArray = [];
     treatments.forEach(async (i) => {
-      var x=await contract.methods.getTreatmentDetails(i).call();
+      var x = await contract.methods.getTreatmentDetails(i).call();
       // console.log(x);
-      arr.push(x)
+      treatmentDetailsArray.push(x);
     });
-    setTreatmentDet(arr)
-    console.log(treatmentDet)
+    setTreatmentDet(treatmentDetailsArray);
+    console.log(treatmentDet);
   };
 
-    const getBalance = async function () {
-      let kit = ContractKit.newKitFromWeb3(web3);
-      const totalBalance = await kit.getTotalBalance(kit.defaultAccount)
-      const cUSDBalance = totalBalance.cUSD.shiftedBy(-ERC20_DECIMALS).toFixed(2)
-      
-      console.log(totalBalance)
-      setBalances({
-          cUSD: cUSDBalance
-        })
-    };
+  const getBalance = async function () {
+    let kit = ContractKit.newKitFromWeb3(web3);
+    const totalBalance = await kit.getTotalBalance(kit.defaultAccount);
+    const cUSDBalance = totalBalance.cUSD.shiftedBy(-ERC20_DECIMALS).toFixed(2);
+
+    console.log(totalBalance);
+    setBalances({
+      cUSD: cUSDBalance,
+    });
+  };
 
   const getDetail = async () => {
     console.log(address);
@@ -105,9 +106,9 @@ function Patient() {
       setTreatments(res[4]);
       setDoctors(res[5]);
       console.log(res);
-   
+
       getBalance();
-      console.log("abc")
+      console.log("abc");
       // await getDoctor(101);
       // await getDoctor();
     }
@@ -116,107 +117,151 @@ function Patient() {
   // getDetail()
   useEffect(async () => {
     if (web3) getDetail();
-  },[address]);
+  }, [address]);
 
   return (
-    <div>
-      <div className="text-secondary text-left m-5">
-        <div>
-          <h1 className="fw-bold">Patient</h1>
-          <h5>{name}</h5>
-        </div>
-        <div>
-          <h1 className="fw-bold">Address</h1>
-          <h5>{addr}</h5>
-        </div>
-        <div>
-          <h1 className="fw-bold">Phone</h1>
-          <h5>{phn}</h5>
-        </div>
-      </div>
-      <br />
-
-      <ul>
-        <li>CELO BALANCE IN ACCOUNT: {balances.CELO}</li>
-        <li>cUSD BALANCE IN ACCOUNT: {balances.cUSD}</li>
-      </ul>
-      <button className="btn btn-primary mx-5" onClick={getDoctor}>
-          Get Doctor
-        </button>
-
-        <button className="btn btn-primary mx-5" onClick={getTreatment}>
-          Get Treatments
-        </button>
-      <div className="text-secondary m-5">
-        Your Doctors
-        {doctors}
-        {/* {doctors.map((did) => getDoctor(did))} */}
-        <div className="d-flex">
-          <div className="d-flex align-items-center justify-content-center">
-            <div className="mt-4 mx-5 btn text-left card card-body bg-dark text-white rounded col-3">
-              <div>
-                <div>
-                  <h2 className="bg-black text-left p-2 rounded font-weight-bold">
-                    Dr. Ram Kumar
-                  </h2>
-                  <h5 className="p-2">Complete the dashboard integration</h5>
-                  <p className="p-2 badge ">Fabian Ferno</p>
-                </div>
+    <Layout>
+      <div className="mt-5 container">
+        <div className="d-md-flex d-block align-items-start justify-content-center">
+          <div className="m-3 rounded col-md-4 col-12 card card-body bg-black">
+            <div className="d-md-flex d-block">
+              <div className="col-md-4 col-12 overflow-hidden">
+                <img src="https://picsum.photos/500/400" alt="" srcset="" />
               </div>
-            </div>
-            <div className="mt-4 mx-5 btn text-left card card-body bg-dark text-white rounded col-3">
-              <div>
-                <div>
-                  <h2 className="bg-black text-left p-2 rounded font-weight-bold">
-                    Dr. Ram Kumar
-                  </h2>
-                  <h5 className="p-2 ">Complete the dashboard integration</h5>
-                  <p className="p-2 badge">Fabian Ferno</p>
+              <div className="col-md-8 col-12">
+                <div className="text-secondary text-start m-5">
+                  <div>
+                    <h6>Patient</h6>
+                    <h3 className="fw-bold text-primary">{name}</h3>
+                  </div>
+                  <div className="my-5">
+                    <h6>Address</h6>
+                    <h3 className="fw-bold text-primary">{addr}</h3>
+                  </div>
+                  <div>
+                    <h6>Phone</h6>
+                    <h3 className="fw-bold text-primary">{phn}</h3>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <br />
-        Your Treatments
-        <div className="d-flex">
-          <div className="d-flex align-items-center justify-content-center">
-            <div className="mt-4 mx-5 btn text-left card card-body bg-dark text-white rounded col-3">
-              <div>
-                <div>
-                  <h2 className="bg-black text-left p-2 rounded font-weight-bold">
-                    Dr. Ram Kumar
-                  </h2>
-                  <h5 className="p-2">Complete the dashboard integration</h5>
-                  <p className="p-2 badge ">Fabian Ferno</p>
-                </div>
+
+          <div className="m-3 p-5 rounded col-md-3 col-12 card card-body bg-black  ">
+            <div className="text-secondary text-start ">
+              <div className="my-4">
+                <h6>CELO Balance</h6>
+                <h3 className="fw-bold text-primary">
+                  {!balances.CELO && "Couldn't Get CELO Balance"}
+                </h3>
               </div>
-            </div>
-            <div className="mt-4 mx-5 btn text-left card card-body bg-dark text-white rounded col-3">
               <div>
-                <div>
-                  <h2 className="bg-black text-left p-2 rounded font-weight-bold">
-                    Dr. Ram Kumar
-                  </h2>
-                  <h5 className="p-2 ">Complete the dashboard integration</h5>
-                  <p className="p-2 badge">Fabian Ferno</p>
-                </div>
+                <h6>cUSD Balance</h6>
+                <h3 className="fw-bold text-primary">{balances.cUSD}</h3>
               </div>
+              <button
+                type="button"
+                className="btn btn-lg d-block btn-primary my-3 fw-bold"
+                onClick={getDoctor}
+              >
+                Get Doctor
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-lg d-block btn-primary my-3  fw-bold"
+                onClick={getTreatment}
+              >
+                Get Treatments
+              </button>
             </div>
           </div>
         </div>
-        <br />
-        <h1 className="text-white">Enter Doctor Id</h1>
-        <input
-          type="text"
-          value={did}
-          onChange={(e) => setDid(e.target.value)}
-        />
-        <button className="btn btn-primary mx-5" onClick={addDoctor}>
-          Add Doctor
-        </button>
+
+        <hr className="text-secondary" />
+
+        <div className="text-secondary m-5">
+          <section>
+            <h5 className="  pb-3">
+              Your Doctors
+              {doctorDet}
+            </h5>
+            <div className="d-flex">
+              <div className="d-flex align-items-center justify-content-center">
+                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
+                  <div>
+                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
+                      Dr. Ram Kumar
+                    </h2>
+                    <h5 className="p-2">Cardiologist</h5>
+                    <h6 className="p-2 text-secondary">DID #01</h6>
+                  </div>
+                </div>
+                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
+                  <div>
+                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
+                      Dr. Ram Kumar
+                    </h2>
+                    <h5 className="p-2">Cardiologist</h5>
+                    <h6 className="p-2 text-secondary">DID #01</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-5">
+            <h5 className=" pb-3">
+              Your Treatments
+              {doctorDet}
+            </h5>
+            <div className="d-flex">
+              <div className="d-flex align-items-center justify-content-center">
+                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
+                  <div>
+                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
+                      Dr. Ram Kumar
+                    </h2>
+                    <h5 className="p-2">Cardiologist</h5>
+                    <h6 className="p-2 text-secondary">DID #01</h6>
+                  </div>
+                </div>
+                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
+                  <div>
+                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
+                      Dr. Ram Kumar
+                    </h2>
+                    <h5 className="p-2">Cardiologist</h5>
+                    <h6 className="p-2 text-secondary">DID #01</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-5">
+            <h5 className="  pb-3">Add Doctor with ID Number</h5>
+            <div className="d-flex">
+              <div className="d-flex align-items-center justify-content-start">
+                <input
+                  type="number"
+                  className="bg-dark p-3 text-white rounded"
+                  value={did}
+                  onChange={(e) => setDid(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="btn btn-primary mx-5 btn-lg d-block fw-bold"
+                  onClick={addDoctor}
+                >
+                  Add Doctor ➕
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
