@@ -1,25 +1,24 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useState, useRef } from "react";
 import { UserContext } from "./UserContext";
 import { useHistory } from "react-router-dom";
 
 import Layout from "./components/Layout";
 
-let ContractKit = require("@celo/contractkit");
-
+// let ContractKit = require("@celo/contractkit");
 
 function Register() {
-  const { address, web3, contract } = useContext(UserContext);
+  const { address, contract } = useContext(UserContext);
   const [formToggle, setFormToggle] = useState(false);
   let history = useHistory();
 
-  const patientIdInputRef=useRef();
+  const patientIdInputRef = useRef();
   const patientNameInputRef = useRef();
   const patientAddressInputRef = useRef();
   const patientPhoneInputRef = useRef();
   // const patientAgeInputRef = useRef();
   const patientBloodGroupInputRef = useRef();
 
-  const doctorIdInputRef=useRef();
+  const doctorIdInputRef = useRef();
   const doctorNameInputRef = useRef();
   const doctorAddressInputRef = useRef();
   const doctorPhoneInputRef = useRef();
@@ -27,7 +26,7 @@ function Register() {
   const doctorExpertiseInputRef = useRef();
 
   async function createDoctor() {
-    var doctorId=doctorIdInputRef.current.value;
+    var doctorId = doctorIdInputRef.current.value;
     var doctorName = doctorNameInputRef.current.value;
     var doctorAddress = doctorAddressInputRef.current.value;
     var doctorPhone = doctorPhoneInputRef.current.value;
@@ -43,46 +42,49 @@ function Register() {
     );
 
     const receipt = await contract.methods
-    .addDoctor(doctorId,doctorName,doctorPractice,doctorExpertise,doctorPhone,doctorAddress)
-    .send({
-      from: address,
-    });
-  console.log(receipt);
+      .addDoctor(
+        doctorId,
+        doctorName,
+        doctorPractice,
+        doctorExpertise,
+        doctorPhone,
+        doctorAddress
+      )
+      .send({
+        from: address,
+      });
+    console.log(receipt);
 
     // Call API to create doctor
     history.push("/doctor");
   }
 
- async function createPatient() {
-    var patientId=patientIdInputRef.current.value;
+  async function createPatient() {
+    var patientId = patientIdInputRef.current.value;
     var patientName = patientNameInputRef.current.value;
     var patientAddress = patientAddressInputRef.current.value;
     var patientPhone = patientPhoneInputRef.current.value;
     // var patientAge = patientAgeInputRef.current.value;
     var patientBloodGroup = patientBloodGroupInputRef.current.value;
 
-  
-
-
-    console.log(
-      patientName,
-      patientAddress,
-      patientPhone,
-      patientBloodGroup
-    );
+    console.log(patientName, patientAddress, patientPhone, patientBloodGroup);
 
     const receipt = await contract.methods
-    .addPatientInfo(patientId,patientName,patientAddress, patientPhone, patientBloodGroup)
-    .send({
-      from: address,
-    });
-  console.log(receipt);
-  history.push("/patient");
+      .addPatientInfo(
+        patientId,
+        patientName,
+        patientAddress,
+        patientPhone,
+        patientBloodGroup
+      )
+      .send({
+        from: address,
+      });
+    console.log(receipt);
+    history.push("/patient");
 
     // Call API to create patient
   }
-
-
 
   // const register = async function () {
   //   const receipt = await contract.methods
@@ -99,16 +101,9 @@ function Register() {
 
   return (
     <Layout>
-      <section>
+      <section className="pt-5">
         <div className="text-center">
-          <div>{address}</div>
-          {/* <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={register}
-          >
-            Register
-          </button> */}
+          <div className="text-secondary">{address}</div>
           <button
             type="button"
             className="btn btn-outline-primary"
@@ -121,7 +116,7 @@ function Register() {
         {formToggle ? (
           <div className="text-dark container" style={{ paddingTop: "150px" }}>
             <div className="mb-5 d-flex justify-content-between  align-items-center">
-              <h1 className="font-weight-bold text-white">Create a Doctor</h1>
+              <h1 className="fw-bold text-white ">Create a Doctor</h1>
               <div className="form-check form-switch mb-3">
                 <button
                   onClick={() => setFormToggle(!formToggle)}
@@ -134,7 +129,7 @@ function Register() {
             </div>
             <section className="pb-5 mb-5">
               <form>
-              <div className="form-group">
+                <div className="form-group my-4">
                   <label htmlFor="inputId" className="text-secondary">
                     Id
                   </label>
@@ -147,7 +142,7 @@ function Register() {
                     placeholder="Doctor Id"
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group   my-4">
                   <label htmlFor="inputName" className="text-secondary">
                     Name
                   </label>
@@ -161,7 +156,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group my-4">
                   <label htmlFor="inputAddress" className="text-secondary">
                     Address
                   </label>
@@ -177,7 +172,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group my-4">
                   <label htmlFor="inputPhone" className="text-secondary">
                     Phone
                   </label>
@@ -193,7 +188,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group my-4">
                   <label htmlFor="inputPractice" className="text-secondary">
                     Practice Type
                   </label>
@@ -209,7 +204,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group  my-4">
                   <label htmlFor="inputExpertise" className="text-secondary">
                     Area of Expertise
                   </label>
@@ -228,7 +223,7 @@ function Register() {
 
               <div
                 onClick={() => createDoctor()}
-                className="mt-3 btn btn-block btn-lg text-dark font-weight-bold btn-primary p-3"
+                className="mt-5 btn d-block btn-lg text-dark fw-bold btn-primary p-3"
               >
                 Create Doctor and Proceed ✅
               </div>
@@ -236,8 +231,8 @@ function Register() {
           </div>
         ) : (
           <div className="text-dark container" style={{ paddingTop: "150px" }}>
-            <div className="mb-5 d-flex justify-content-between  align-items-center">
-              <h1 className="font-weight-bold text-white">Create a Patient</h1>
+            <div className="mb-5 d-flex justify-content-between align-items-center">
+              <h1 className="fw-bold text-white">Create a Patient</h1>
               <div className="form-check form-switch mb-3">
                 <button
                   onClick={() => setFormToggle(!formToggle)}
@@ -250,7 +245,7 @@ function Register() {
             </div>
             <section className="pb-5 mb-5">
               <form>
-              <div className="form-group">
+                <div className="form-group  my-4">
                   <label htmlFor="inputId" className="text-secondary">
                     Id
                   </label>
@@ -264,8 +259,7 @@ function Register() {
                   />
                 </div>
 
-
-                <div className="form-group">
+                <div className="form-group  my-4">
                   <label htmlFor="inputName" className="text-secondary">
                     Name
                   </label>
@@ -279,7 +273,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group  my-4">
                   <label htmlFor="inputAddress" className="text-secondary">
                     Address
                   </label>
@@ -295,7 +289,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group  my-4">
                   <label htmlFor="inputPhone" className="text-secondary">
                     Phone
                   </label>
@@ -311,7 +305,7 @@ function Register() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group  my-4">
                   <label htmlFor="inputBlood" className="text-secondary">
                     Blood Group
                   </label>
@@ -335,27 +329,11 @@ function Register() {
                     <option value="O-">O-</option>
                   </select>
                 </div>
-
-                {/* <div className="form-group">
-                  <label htmlFor="inputAge" className="text-secondary">
-                    Age
-                  </label>
-                  <input
-                    ref={patientAgeInputRef}
-                    type="number"
-                    className={
-                      "p-3 d-flex bg-dark text-white  rounded focus-none"
-                    }
-                    style={{ width: "100%" }}
-                    id="inputAge"
-                    placeholder="Age - Eg. 25"
-                  />
-                </div> */}
               </form>
 
               <div
                 onClick={() => createPatient()}
-                className="mt-3 btn btn-block btn-lg text-dark font-weight-bold btn-primary p-3"
+                className="mt-5 btn d-block btn-lg text-dark fw-bold btn-primary p-3"
               >
                 Create Patient and Proceed ✅
               </div>
