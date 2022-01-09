@@ -66,7 +66,9 @@ function Patient() {
       var x = await contract.methods.getTreatmentDetails(i).call();
       treatmentDetailsArray.push(Object.values(x));
     });
+    
     setTreatmentDet(treatmentDetailsArray);
+    console.log(treatmentDet)
   };
 
   const getBalance = async function () {
@@ -79,8 +81,32 @@ function Patient() {
     });
   };
 
-  const getDetail = async () => {
-    // console.log(address);
+  // const getDetail = async () => {
+  //   // console.log(address);
+  //   let kit = ContractKit.newKitFromWeb3(web3);
+  //   contract = new kit.web3.eth.Contract(
+  //     test2,
+  //     "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
+  //   );
+  //   const t = await contract.methods.Identify().call();
+
+  //   if (t !== 0) {
+  //     uid = await contract.methods.addresstoId(address).call();
+  //     // console.log(web3);
+  //     const res = await contract.methods.getPatientInfo(uid).call();
+  //     setName(res[0]);
+  //     setAddr(res[1]);
+  //     setPhn(res[2]);
+  //     setBld(res[3]);
+  //     setTreatments(res[4]);
+  //     setDoctors(res[5]);
+
+  //     getBalance();
+  //   }
+  // };
+
+  // getDetail()
+  useEffect(async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
       test2,
@@ -101,12 +127,7 @@ function Patient() {
 
       getBalance();
     }
-  };
-
-  // getDetail()
-  useEffect(async () => {
-    if (web3) getDetail();
-  }, [address]);
+    }, [address,treatmentDet,doctorDet]);
 
   return (
     <Layout>
@@ -230,30 +251,6 @@ function Patient() {
                       </div>
                     </div>
                   ))}
-
-                  {/* <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
-                  <h3 className="fw-bold text-primary mb-4 text-end">
-                    DID #04
-                  </h3>
-                  <div className="mt-0">
-                    <p>Diagnosis</p>
-                    <h2 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
-                      COVID19
-                    </h2>
-                  </div>
-                  <div className="mt-4">
-                    <p>Prescription</p>
-                    <h3 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
-                      CoVaxin
-                    </h3>
-                  </div>
-                  <div className="mt-4">
-                    <p>Bill Amount</p>
-                    <h5 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
-                      Rs. 25000
-                    </h5>
-                  </div>
-                </div> */}
                 </div>
               </section>
             )}
