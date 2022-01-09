@@ -31,9 +31,7 @@ function Patient() {
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     uid = await contract.methods.addresstoId(address).call();
-    console.log(uid);
-    console.log(did);
-    console.log(contract);
+    console.log(uid, did, contract);
 
     const t = await contract.methods.addDoctor_Patient(did, uid).send({
       from: address,
@@ -51,12 +49,11 @@ function Patient() {
     );
     doctors.forEach(async (i) => {
       var x = await contract.methods.getDoctorInfo(i).call();
-      // console.log(x);
-      doctorDetailsArray.push(x);
+      doctorDetailsArray.push(Object.values(x));
     });
     setDoctorDet(doctorDetailsArray);
     console.log(doctorDet);
-  };
+  }; // getDoctor
 
   const getTreatment = async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
@@ -67,11 +64,9 @@ function Patient() {
     var treatmentDetailsArray = [];
     treatments.forEach(async (i) => {
       var x = await contract.methods.getTreatmentDetails(i).call();
-      // console.log(x);
-      treatmentDetailsArray.push(x);
+      treatmentDetailsArray.push(Object.values(x));
     });
     setTreatmentDet(treatmentDetailsArray);
-    console.log(treatmentDet);
   };
 
   const getBalance = async function () {
@@ -79,14 +74,13 @@ function Patient() {
     const totalBalance = await kit.getTotalBalance(kit.defaultAccount);
     const cUSDBalance = totalBalance.cUSD.shiftedBy(-ERC20_DECIMALS).toFixed(2);
 
-    console.log(totalBalance);
     setBalances({
       cUSD: cUSDBalance,
     });
   };
 
   const getDetail = async () => {
-    console.log(address);
+    // console.log(address);
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
       test2,
@@ -94,10 +88,9 @@ function Patient() {
     );
     const t = await contract.methods.Identify().call();
 
-    console.log(contract);
-    if (t != 0) {
+    if (t !== 0) {
       uid = await contract.methods.addresstoId(address).call();
-      console.log(web3);
+      // console.log(web3);
       const res = await contract.methods.getPatientInfo(uid).call();
       setName(res[0]);
       setAddr(res[1]);
@@ -105,12 +98,8 @@ function Patient() {
       setBld(res[3]);
       setTreatments(res[4]);
       setDoctors(res[5]);
-      console.log(res);
 
       getBalance();
-      console.log("abc");
-      // await getDoctor(101);
-      // await getDoctor();
     }
   };
 
@@ -149,12 +138,6 @@ function Patient() {
 
           <div className="m-3 p-5 rounded col-md-3 col-12 card card-body bg-black  ">
             <div className="text-secondary text-start ">
-              <div className="my-4">
-                <h6>CELO Balance</h6>
-                <h3 className="fw-bold text-primary">
-                  {!balances.CELO && "Couldn't Get CELO Balance"}
-                </h3>
-              </div>
               <div>
                 <h6>cUSD Balance</h6>
                 <h3 className="fw-bold text-primary">{balances.cUSD}</h3>
@@ -162,7 +145,7 @@ function Patient() {
               <button
                 type="button"
                 className="btn btn-lg d-block btn-primary my-3 fw-bold"
-                onClick={getDoctor}
+                onClick={() => getDoctor()}
               >
                 Get Doctor
               </button>
@@ -182,19 +165,30 @@ function Patient() {
 
         <div className="text-secondary m-5">
           <div className="d-md-flex d-block">
-            <section className="me-5  mt-5 col-md-4 col-12">
-              <h5 className=" pb-3">Your Doctors</h5>
-              <div className="d-block">
-                <div className="mt-3 btn text-start card card-body bg-black text-white rounded ">
-                  <div>
-                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
-                      Dr. Ram Kumar
-                    </h2>
-                    <h5 className="p-2">Cardiologist</h5>
-                    <h6 className="p-2 text-secondary">DID #01</h6>
-                  </div>
-                </div>
-                <div className="mt-3 btn text-start card card-body bg-black text-white rounded ">
+            {doctorDet.length > 0 && (
+              <section className="me-5  mt-5 col-md-4 col-12">
+                <h5 className=" pb-3">Your Doctors</h5>
+                <div className="d-block">
+                  {doctorDet.map((doctor) => (
+                    <div className="mt-3 btn text-start card card-body bg-black text-white rounded ">
+                      <div>
+                        <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
+                          Dr. {doctor[0]}
+                        </h2>
+                        <h5 className="p-2">Expertise: {doctor[2]}</h5>
+                        <h6 className="p-2 text-secondary">
+                          Practice: {doctor[1]}
+                        </h6>
+                        <h6 className="p-2 text-secondary">
+                          Phone: {doctor[3]}
+                        </h6>
+
+                        <h6 className="p-2 text-secondary">DID #01</h6>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* <div className="mt-3 btn text-start card card-body bg-black text-white rounded ">
                   <div>
                     <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
                       Dr. Stephen Strange
@@ -202,38 +196,42 @@ function Patient() {
                     <h5 className="p-2">Neurologist</h5>
                     <h6 className="p-2 text-secondary">DID #02</h6>
                   </div>
+                </div> */}
                 </div>
-              </div>
-            </section>
+              </section>
+            )}
 
-            <section className="me-5 mt-5 col-md-4 col-12">
-              <h5 className=" pb-3">Your Treatments</h5>
-              <div className="d-block">
-                <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
-                  <h3 className="fw-bold text-primary mb-4 text-end">
-                    DID #04
-                  </h3>
-                  <div className="mt-0">
-                    <p>Diagnosis</p>
-                    <h2 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
-                      Common Cold
-                    </h2>
-                  </div>
-                  <div className="mt-4">
-                    <p>Prescription</p>
-                    <h3 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
-                      Dolo 650
-                    </h3>
-                  </div>
-                  <div className="mt-4">
-                    <p>Bill Amount</p>
-                    <h5 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
-                      Rs. 250
-                    </h5>
-                  </div>
-                </div>
+            {treatmentDet.length > 0 && (
+              <section className="me-5 mt-5 col-md-4 col-12">
+                <h5 className=" pb-3">Your Treatments</h5>
+                <div className="d-block">
+                  {treatmentDet.map((treatment) => (
+                    <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
+                      <h3 className="fw-bold text-primary mb-4 text-end">
+                        DID #{treatment[1]}
+                      </h3>
+                      <div className="mt-0">
+                        <p>Diagnosis</p>
+                        <h2 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                          {treatment[2]}
+                        </h2>
+                      </div>
+                      <div className="mt-4">
+                        <p>Prescription</p>
+                        <h3 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                          {treatment[4]}
+                        </h3>
+                      </div>
+                      <div className="mt-4">
+                        <p>Bill Amount</p>
+                        <h5 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                          {treatment[3]}
+                        </h5>
+                      </div>
+                    </div>
+                  ))}
 
-                <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
+                  {/* <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
                   <h3 className="fw-bold text-primary mb-4 text-end">
                     DID #04
                   </h3>
@@ -255,9 +253,10 @@ function Patient() {
                       Rs. 25000
                     </h5>
                   </div>
+                </div> */}
                 </div>
-              </div>
-            </section>
+              </section>
+            )}
             <section className="me-5 mt-5 col-md-2 col-12 ">
               <h5 className="pb-3">Add Doctor with ID Number</h5>
               <div className="d-block">
