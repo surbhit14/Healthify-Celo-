@@ -114,8 +114,14 @@ function Patient() {
         <div className="d-md-flex d-block align-items-start justify-content-center">
           <div className="m-3 rounded col-md-4 col-12 card card-body bg-black">
             <div className="d-md-flex d-block">
-              <div className="col-md-4 col-12 overflow-hidden">
-                <img src="https://picsum.photos/500/400" alt="" srcset="" />
+              <div className="m-4 col-md-4 d-flex align-items-center justify-content-center">
+                <img
+                  src="/avatar.png"
+                  style={{ borderRadius: "100%" }}
+                  className="img-fluid "
+                  alt=""
+                  srcset=""
+                />
               </div>
               <div className="col-md-8 col-12">
                 <div className="text-secondary text-start m-5">
@@ -123,7 +129,7 @@ function Patient() {
                     <h6>Patient</h6>
                     <h3 className="fw-bold text-primary">{name}</h3>
                   </div>
-                  <div className="my-5">
+                  <div className="my-2">
                     <h6>Address</h6>
                     <h3 className="fw-bold text-primary">{addr}</h3>
                   </div>
