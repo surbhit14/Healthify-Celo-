@@ -111,12 +111,6 @@ function Doctor() {
   return (
     <Layout>
       <dive className="mt-5 pt-5 d-flex justify-content-center align-items-center">
-        <div className="text-center text-secondary ">
-          {address}
-          {name}
-          {addr}
-        </div>
-
         <button className="btn btn-primary mx-5" onClick={getPatient}>
           Get Patient Detials
         </button>

@@ -102,17 +102,6 @@ function Register() {
   return (
     <Layout>
       <section className="pt-5">
-        <div className="text-center">
-          <div className="text-secondary">{address}</div>
-          <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={reg}
-          >
-            Profile
-          </button>
-        </div>
-
         {formToggle ? (
           <div className="text-dark container" style={{ paddingTop: "150px" }}>
             <div className="mb-5 d-flex justify-content-between  align-items-center">
