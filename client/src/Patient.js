@@ -181,14 +181,11 @@ function Patient() {
         <hr className="text-secondary" />
 
         <div className="text-secondary m-5">
-          <section>
-            <h5 className="  pb-3">
-              Your Doctors
-              {doctorDet}
-            </h5>
-            <div className="d-flex">
-              <div className="d-flex align-items-center justify-content-center">
-                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
+          <div className="d-md-flex d-block">
+            <section className="me-5  mt-5 col-md-4 col-12">
+              <h5 className=" pb-3">Your Doctors</h5>
+              <div className="d-block">
+                <div className="mt-3 btn text-start card card-body bg-black text-white rounded ">
                   <div>
                     <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
                       Dr. Ram Kumar
@@ -197,52 +194,73 @@ function Patient() {
                     <h6 className="p-2 text-secondary">DID #01</h6>
                   </div>
                 </div>
-                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
+                <div className="mt-3 btn text-start card card-body bg-black text-white rounded ">
                   <div>
                     <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
-                      Dr. Ram Kumar
+                      Dr. Stephen Strange
                     </h2>
-                    <h5 className="p-2">Cardiologist</h5>
-                    <h6 className="p-2 text-secondary">DID #01</h6>
+                    <h5 className="p-2">Neurologist</h5>
+                    <h6 className="p-2 text-secondary">DID #02</h6>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section className="mt-5">
-            <h5 className=" pb-3">
-              Your Treatments
-              {doctorDet}
-            </h5>
-            <div className="d-flex">
-              <div className="d-flex align-items-center justify-content-center">
-                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
-                  <div>
-                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
-                      Dr. Ram Kumar
+            <section className="me-5 mt-5 col-md-4 col-12">
+              <h5 className=" pb-3">Your Treatments</h5>
+              <div className="d-block">
+                <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
+                  <h3 className="fw-bold text-primary mb-4 text-end">
+                    DID #04
+                  </h3>
+                  <div className="mt-0">
+                    <p>Diagnosis</p>
+                    <h2 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                      Common Cold
                     </h2>
-                    <h5 className="p-2">Cardiologist</h5>
-                    <h6 className="p-2 text-secondary">DID #01</h6>
+                  </div>
+                  <div className="mt-4">
+                    <p>Prescription</p>
+                    <h3 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                      Dolo 650
+                    </h3>
+                  </div>
+                  <div className="mt-4">
+                    <p>Bill Amount</p>
+                    <h5 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                      Rs. 250
+                    </h5>
                   </div>
                 </div>
-                <div className="me-4 btn text-start card card-body bg-black text-white rounded col-3">
-                  <div>
-                    <h2 className="bg-primary text-black text-start p-2 rounded fw-bold">
-                      Dr. Ram Kumar
+
+                <div className="mb-5 btn text-start card card-body bg-black text-white rounded ">
+                  <h3 className="fw-bold text-primary mb-4 text-end">
+                    DID #04
+                  </h3>
+                  <div className="mt-0">
+                    <p>Diagnosis</p>
+                    <h2 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                      COVID19
                     </h2>
-                    <h5 className="p-2">Cardiologist</h5>
-                    <h6 className="p-2 text-secondary">DID #01</h6>
+                  </div>
+                  <div className="mt-4">
+                    <p>Prescription</p>
+                    <h3 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                      CoVaxin
+                    </h3>
+                  </div>
+                  <div className="mt-4">
+                    <p>Bill Amount</p>
+                    <h5 className="border-bottom border-primary text-white text-start p-2 rounded fw-bold">
+                      Rs. 25000
+                    </h5>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-
-          <section className="mt-5">
-            <h5 className="  pb-3">Add Doctor with ID Number</h5>
-            <div className="d-flex">
-              <div className="d-flex align-items-center justify-content-start">
+            </section>
+            <section className="me-5 mt-5 col-md-2 col-12 ">
+              <h5 className="pb-3">Add Doctor with ID Number</h5>
+              <div className="d-block">
                 <input
                   type="number"
                   className="bg-dark p-3 text-white rounded"
@@ -251,14 +269,15 @@ function Patient() {
                 />
                 <button
                   type="button"
-                  className="btn btn-primary mx-5 btn-lg d-block fw-bold"
+                  className="mt-2 btn btn-primary btn-lg d-block fw-bold"
                   onClick={addDoctor}
+                  style={{ width: "100%" }}
                 >
                   Add Doctor ➕
                 </button>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
       </div>
     </Layout>
