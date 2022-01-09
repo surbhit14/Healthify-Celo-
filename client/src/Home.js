@@ -2,13 +2,66 @@ import Layout from "./components/Layout";
 
 import Hospital from "./assets/img/hero1.svg";
 
+import { Component } from "react";
+import { motion } from "framer-motion";
+
 function Home() {
+  const textArray = [
+    "Hospital Mangement System",
+    "on the Blockchain",
+    "via Smart Contracts",
+  ];
+  class Hero extends Component {
+    constructor() {
+      super();
+      this.state = { textIdx: 0 };
+    }
+
+    componentDidMount() {
+      this.timeout = setInterval(() => {
+        let currentIdx = this.state.textIdx;
+        this.setState({ textIdx: currentIdx + 1 });
+      }, 1800);
+    }
+
+    componentDidUnmount() {
+      clearInterval(this.timeout);
+    }
+
+    render() {
+      let textThatChanges = textArray[this.state.textIdx % textArray.length];
+
+      return (
+        <div style={{ height: "18rem" }} className="py-5 col-6">
+          <motion.h1
+            animate={{
+              y: [0, 10, -10, 0, 10, -10],
+            }}
+            transition={{
+              duration: 3.6,
+              ease: "easeInOut",
+              loop: Infinity,
+            }}
+            style={{
+              fontSize: "4rem",
+              fontFamily: "Montserrat",
+            }}
+            className="text-white fw-bold"
+          >
+            {textThatChanges}
+          </motion.h1>
+        </div>
+      );
+    }
+  }
+
   return (
     <Layout>
       <div className="text-dark">
-        <div className="">
-          <div className="d-flex bg-dark px-5 pb-3 justify-content-between mt-5 pt-5">
-            <iframe
+        <div className="container">
+          <div className="d-md-flex d-block bg-dark px-5 pb-3 justify-content-between mt-5 pt-5">
+            <Hero></Hero>
+            {/* <iframe
               title="hero"
               src="/hero.html"
               style={{
@@ -18,7 +71,7 @@ function Home() {
               }}
               frameborder="0"
               scrolling="no"
-            ></iframe>
+            ></iframe> */}
             <img
               style={{
                 zIndex: "0",
@@ -31,13 +84,13 @@ function Home() {
               srcset=""
             />
           </div>
+          <h2 className="py-5 my-5 px-2 w-50 mx-5 text-secondary mt-5 text-start">
+            Healthify is the next generation of healthcare. The platform runs on
+            smart contracts at the blockchain level.
+          </h2>
         </div>
-        <h2 className="py-5 my-5 px-2 w-50 mx-5 text-secondary mt-5 text-left">
-          Healthify is the next generation of healthcare. The platform runs on
-          smart contracts at the blockchain level.
-        </h2>
 
-        <section className="vh-100  d-flex flex-column-reverse flex-md-row align-justify-center mt-4">
+        <section className="vh-100 container d-flex flex-column-reverse flex-md-row align-justify-center mt-4">
           <div className="d-flex align-items-center justify-content-center w-100 mt-4 mt-md-0">
             <div className="px-md-5">
               <h2 style={{ fontSize: "5em" }} className="text-white fw-bold">
@@ -51,13 +104,13 @@ function Home() {
               </p>
             </div>
           </div>
-          <div className="bg-dark rounded-circle mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
+          <div className="bg-dark   mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
             <img height="auto" width="65%" src={Hospital} alt="" />
           </div>
         </section>
         <section className="vh-100  d-flex flex-column-reverse flex-md-row align-justify-center mt-4">
-          <div className="bg-dark rounded-circle mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
-            <img height="auto" width="65%" src={Hospital} alt="" />
+          <div className="bg-dark  mt-3 mt-md-0 d-flex align-items-center justify-content-center w-100">
+            <img height="auto" width="40%" src={Hospital} alt="" />
           </div>
           <div className="d-flex align-items-center justify-content-center w-100 mt-4 mt-md-0">
             <div className="px-md-5">
