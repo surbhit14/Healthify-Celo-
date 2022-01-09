@@ -72,7 +72,7 @@ function Home() {
               }}
               src={Hospital}
               alt=""
-              srcset=""
+              srcSet=""
             />
           </div>
           <h2 className="py-5 my-5 px-2 w-50 mx-5 text-secondary mt-5 text-start">
