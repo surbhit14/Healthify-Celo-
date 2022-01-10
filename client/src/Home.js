@@ -7,9 +7,9 @@ import { motion } from "framer-motion";
 
 function Home() {
   const textArray = [
-    "Be the Master of your Data",
-    "by storing it on the Blockchain",
-    "using our platform powered by Celo",
+    "HealthCare data management",
+    "built on Blockchain",
+    "powered by Celo",
   ];
   class Hero extends Component {
     constructor() {
