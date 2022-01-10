@@ -69,7 +69,7 @@ function Home() {
                 style={{
                   zIndex: "0",
                   height: "30rem",
-                  width: "70em",
+                  width: "40em",
                   marginBottom: "-30rem",
                 }}
                 src={Hospital}
