@@ -7,9 +7,9 @@ import { motion } from "framer-motion";
 
 function Home() {
   const textArray = [
-    "Hospital Mangement System",
-    "on the Blockchain",
-    "via Smart Contracts",
+    "Be the Master of your Data",
+    "by storing it on the Blockchain",
+    "using our platform powered by Celo",
   ];
   class Hero extends Component {
     constructor() {
@@ -91,8 +91,7 @@ function Home() {
           </div>
           <h2 className="py-5 my-5 px-2 w-50 mx-5 text-secondary mt-5 text-start">
             <span className="text-primary fw-bold">Healthify</span> is the next
-            generation of healthcare. The platform runs on smart contracts at
-            the blockchain level.
+            generation of healthcare. The platform stores data on the blockchain with the help of smart contracts
           </h2>
         </div>
 
@@ -106,14 +105,13 @@ function Home() {
                 style={{ fontSize: "3.5rem" }}
                 className="text-white  fw-bold"
               >
-                Become the future of{" "}
+                Become a part of the future of{" "}
                 <span className="text-primary">healthcare</span>
               </h2>
               <p className="pt-3 h5 text-secondary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-                aperiam error iste aspernatur illo, ipsum itaque voluptate ab
-                fugiat explicabo beatae eveniet optio vero nemo nulla quae non
-                voluptatem aut.
+                Store your data on the blockchain using our platform <br />
+                Add Doctors to your accounts and get your 
+                treatment details authorised by your doctors
               </p>
             </div>
           </div>
@@ -130,10 +128,9 @@ function Home() {
                 <span className="text-primary">Decentralized</span>
               </h2>
               <p className="pt-3 h5 text-secondary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-                aperiam error iste aspernatur illo, ipsum itaque voluptate ab
-                fugiat explicabo beatae eveniet optio vero nemo nulla quae non
-                voluptatem aut.
+                Be the master of your  healthcare data<br />
+               You as patients get to decide which doctors and hospitals can access your data. <br />
+               Take that power away from healthcare agencies misusing your data in the centralised models
               </p>
             </div>
           </div>
