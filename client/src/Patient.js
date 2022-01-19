@@ -3,12 +3,13 @@ import { UserContext } from "./UserContext";
 import test2 from "./contract/Test.json";
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
+import { fetchData } from "./redux/patientData/patientDataActions";
 let erc20Abi = require("./erc20Abi.json");
 const ERC20_DECIMALS = 18;
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
 function Patient() {
-  const { address, web3, contract1 } = useContext(UserContext);
+  const { address, web3, contract } = useContext(UserContext);
 
   const [did, setDid] = useState(0);
   // const [uid, setUid] = useState(0);
@@ -22,14 +23,8 @@ function Patient() {
   const [treatmentDet, setTreatmentDet] = useState([]);
   const [balances, setBalances] = useState({ cUSD: 0 });
 
-  var contract;
   var uid;
   const addDoctor = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
     uid = await contract.methods.addresstoId(address).call();
     console.log(uid, did, contract);
 
@@ -41,12 +36,7 @@ function Patient() {
   };
 
   const getDoctor = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
     var doctorDetailsArray = [];
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
     doctors.forEach(async (i) => {
       var x = await contract.methods.getDoctorInfo(i).call();
       doctorDetailsArray.push(Object.values(x));
@@ -56,11 +46,6 @@ function Patient() {
   }; // getDoctor
 
   const getTreatment = async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
     var treatmentDetailsArray = [];
     treatments.forEach(async (i) => {
       var x = await contract.methods.getTreatmentDetails(i).call();
@@ -107,11 +92,6 @@ function Patient() {
 
   // getDetail()
   useEffect(async () => {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
     const t = await contract.methods.Identify().call();
 
     if (t !== 0) {
@@ -124,10 +104,10 @@ function Patient() {
       setBld(res[3]);
       setTreatments(res[4]);
       setDoctors(res[5]);
-
+      
       getBalance();
     }
-  }, [address, treatmentDet, doctorDet]);
+  },[address, treatmentDet, doctorDet,name,doctors]);
 
   return (
     <Layout>

@@ -15,7 +15,7 @@ function Doctor() {
   const billInputRef = useRef();
   const medicineInputRef = useRef();
 
-  const { address, web3, contract1 } = useContext(UserContext);
+  const { address, web3, contract} = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [addr, setAddr] = useState("");
@@ -26,16 +26,9 @@ function Doctor() {
   const [patientDet, setPatientDet] = useState([]);
   const [balances, setBalances] = useState({ cUSD: 0 });
 
-  let contract;
   let uid;
 
   async function addTreatment() {
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
-
     var pid = pidInputRef.current.value;
     var did = didInputRef.current.value;
     var diagnosis = diagnosisInputRef.current.value;
@@ -49,19 +42,16 @@ function Doctor() {
       });
     console.log(pid, did, diagnosis, bill, medicine);
 
-    // Call API to create patient
+   
   }
 
   const getPatient = async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     var arr = [];
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
+
     patients.forEach(async (i) => {
       var x = await contract.methods.getPatientInfo_Doc(i).call();
-      // console.log(x);
+
       arr.push(x);
     });
     setPatientDet(arr);
@@ -79,16 +69,8 @@ function Doctor() {
     });
   };
 
-  const getDetail = async () => {
-    console.log(address);
-    let kit = ContractKit.newKitFromWeb3(web3);
-    contract = new kit.web3.eth.Contract(
-      test2,
-      "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-    );
+  useEffect(async () => {
     const t = await contract.methods.Identify().call();
-    console.log(t);
-    console.log(contract);
     if (t !== 0) {
       uid = await contract.methods.addresstoId(address).call();
       console.log(web3);
@@ -102,11 +84,7 @@ function Doctor() {
       console.log(res);
       getBalance();
     }
-  };
-
-  useEffect(() => {
-    if (web3) getDetail();
-  }, [address]);
+  }, [address,contract,patients]);
 
   return (
     <Layout>

@@ -34,16 +34,12 @@ function App() {
           kit = ContractKit.newKitFromWeb3(web3);
           const accounts = await kit.web3.eth.getAccounts();
           kit.defaultAccount = accounts[0];
-
-          // const Vault=new kit.web3.eth.Contract(test.abi,"0xecEFEcf20Df6cc4954205Ef211a428eAc8C2A6Ed")
-
           const contr = new kit.web3.eth.Contract(
             test2,
             "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
           );
-          // console.log(kit.defaultAccount);
+          
           setWeb3(web3);
-          // const i=await contr.methods.addresstoId(kit.defaultAccount).call();
           setAddress(kit.defaultAccount);
           setContract(contr);
           cUSDcontract = new kit.web3.eth.Contract(
