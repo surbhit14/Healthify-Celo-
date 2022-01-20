@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { UserContext } from "./UserContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "./redux/blockchain/blockchainActions";
+import { useDispatch, useSelector } from "react-redux";
 
-import Home from "./Home";
 import Home2 from "./Home2";
-import Register from "./Register";
-import Doctor from "./Doctor";
-import Patient2 from "./Patient2";
+import Register from "./Register2";
+import Customer from "./Customer"
+import Bank from "./Bank"
+
 // import "./assets/scss/style.scss";
 
 
 
 function App() {
+  const dispatch = useDispatch();
+        useEffect(() => {
+        console.log("called")
+          dispatch(connect());
+      }, []);
 
   return (
     <>
@@ -19,8 +25,8 @@ function App() {
         <Switch>
             <Route path="/" exact component={Home2} />
             <Route path="/register" exact component={Register} />
-            <Route path="/patient" exact component={Patient2} />
-            <Route path="/doctor" exact component={Doctor} />
+            <Route path="/customer" exact component={Customer} />
+            <Route path="/bank" exact component={Bank} />
         </Switch>
       </Router>
     </>

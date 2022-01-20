@@ -21,18 +21,21 @@ const fetchDataFailed = (payload) => {
   };
 };
 
-export const fetchData = (account) => {
+export const fetchData = () => {
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
-      let uid=store.getState().blockchain.id;
-      let allDocs = await store
+      console.log(store
         .getState()
-        .blockchain.contract.methods.getPatientInfo(uid).call();
+        .blockchain.contract)
+        
+      let res = await store
+        .getState()
+        .blockchain.contract.methods.getCustomerInfo().call();
+
+        console.log(res)
       dispatch(
-        fetchDataSuccess({
-          allDocs
-        })
+        fetchDataSuccess(res)
       );
     } catch (err) {
       console.log(err);

@@ -1,6 +1,17 @@
+// const initialState = {
+//   loading: false,
+//   allBanks: [],
+//   name:null,
+//   address:null,
+//   phoneNo:null,
+//   verified:false,
+//   error: false,
+//   errorMsg: "",
+// };
+
 const initialState = {
   loading: false,
-  allDocs: [],
+  info:null,
   error: false,
   errorMsg: "",
 };
@@ -16,7 +27,7 @@ const dataReducer = (state = initialState, action) => {
       return {
         ...initialState,
         loading: false,
-        allDocs: action.payload.allDocs,
+        info: action.payload,
       };
     case "CHECK_DATA_FAILED":
       return {
