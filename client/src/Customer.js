@@ -7,8 +7,6 @@ function Customer() {
     const blockchain = useSelector((state) => state.blockchain);
     const data = useSelector((state) => state.customerData);
       const getDetails = async () => {
-        var x=blockchain.contract.methods.getCustomerInfo().call();
-        console.log(x)
         console.log(data)
       }; 
 

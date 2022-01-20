@@ -13,11 +13,7 @@ import Bank from "./Bank"
 
 
 function App() {
-  const dispatch = useDispatch();
-        useEffect(() => {
-        console.log("called")
-          dispatch(connect());
-      }, []);
+
 
   return (
     <>

@@ -14,43 +14,43 @@ function Home2() {
       console.log("clicked")
         if(!blockchain.loading){
           console.log("inside")
-            // let t= await blockchain.contract.methods.Identify().call();
-            var td= await blockchain.contract.methods.addresstoId(blockchain.account).call();
-            // var x= await blockchain.contract.methods.type_user(tid).call();
-            // console.log(t)
-            // console.log(tid)
-            // console.log(x)
-           var tid=parseInt(td);
-           if(tid==0)
-           history.push("/register");
+          let t= await blockchain.contract.methods.Identify().call();
+          //   var td= await blockchain.contract.methods.addresstoId(blockchain.account).call();
+          //   // var x= await blockchain.contract.methods.type_user(tid).call();
+          //   // console.log(t)
+          //   // console.log(tid)
+          //   // console.log(x)
+          //  var tid=parseInt(td);
+          //  if(tid==0)
+          //  history.push("/register");
 
-           else if(tid< 1000)
-           history.push("/customer");
+          //  else if(tid< 1000)
+          //  history.push("/customer");
 
-           else history.push("/bank");
-            // switch (t) {
-            //       case "0":
-            //         history.push("/register");
-            //         break;
-            //       case "1":
-            //         history.push("/customer");
-            //         break;
-            //       case "2":
-            //         history.push("/bank");
-            //         break;
-            //       default:
-            //         history.push("/");
-            //         break;
-            //     }
+          //  else history.push("/bank");
+            switch (t) {
+                  case "0":
+                    history.push("/register");
+                    break;
+                  case "1":
+                    history.push("/customer");
+                    break;
+                  case "2":
+                    history.push("/bank");
+                    break;
+                  default:
+                    history.push("/");
+                    break;
+                }
             
         }
       };
 
     
-      // useEffect(() => {
-      //   console.log("called")
-      //     dispatch(connect());
-      // }, []);
+      useEffect(() => {
+        console.log("called")
+          dispatch(connect());
+      }, []);
 
     return (
         <div>
