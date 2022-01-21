@@ -86,6 +86,16 @@
 				"internalType": "uint256",
 				"name": "_phoneNo",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_aadhar",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_pan",
+				"type": "string"
 			}
 		],
 		"name": "addCustomerInfo",
@@ -164,6 +174,16 @@
 				"internalType": "uint256[]",
 				"name": "",
 				"type": "uint256[]"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
