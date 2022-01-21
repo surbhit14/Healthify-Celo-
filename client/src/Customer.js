@@ -13,8 +13,10 @@ function Customer() {
       
       const addBank = async () => {   
         const t = await blockchain.contract.methods.addBank_Customer(bid).send({
-          from: address,
+          from: blockchain.account,
         });
+
+        dispatch(fetchData());
     
         
       };
@@ -37,7 +39,7 @@ function Customer() {
                 Get Details
               </button>
 
-              <h5 className="pb-3">Add Doctor with ID Number</h5>
+              <h5 className="pb-3">Add Bank with ID Number</h5>
               <div className="d-block">
                 <input
                   type="number"

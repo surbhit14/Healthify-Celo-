@@ -1,13 +1,3 @@
-// const initialState = {
-//   loading: false,
-//   allBanks: [],
-//   name:null,
-//   address:null,
-//   phoneNo:null,
-//   verified:false,
-//   error: false,
-//   errorMsg: "",
-// };
 
 const initialState = {
   loading: false,
