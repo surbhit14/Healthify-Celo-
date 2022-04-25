@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "./UserContext";
-import test2 from "./contract/Test.json";
+import healthify_contract from "./contract/Healthify_Contract.json";
 
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
@@ -32,7 +32,7 @@ function Doctor() {
   async function addTreatment() {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
 
@@ -56,7 +56,7 @@ function Doctor() {
     let kit = ContractKit.newKitFromWeb3(web3);
     var arr = [];
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     patients.forEach(async (i) => {
@@ -83,7 +83,7 @@ function Doctor() {
     console.log(address);
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     const t = await contract.methods.Identify().call();

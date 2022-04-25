@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
-import test2 from "./contract/Test.json";
+import healthify_contract from "./contract/Healthify_Contract.json";
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
 let erc20Abi = require("./erc20Abi.json");
@@ -27,7 +27,7 @@ function Patient() {
   const addDoctor = async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     uid = await contract.methods.addresstoId(address).call();
@@ -44,7 +44,7 @@ function Patient() {
     let kit = ContractKit.newKitFromWeb3(web3);
     var doctorDetailsArray = [];
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     doctors.forEach(async (i) => {
@@ -58,7 +58,7 @@ function Patient() {
   const getTreatment = async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     var treatmentDetailsArray = [];
@@ -85,7 +85,7 @@ function Patient() {
   //   // console.log(address);
   //   let kit = ContractKit.newKitFromWeb3(web3);
   //   contract = new kit.web3.eth.Contract(
-  //     test2,
+  //     healthify_contract,
   //     "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
   //   );
   //   const t = await contract.methods.Identify().call();
@@ -109,7 +109,7 @@ function Patient() {
   useEffect(async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
-      test2,
+      healthify_contract,
       "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
     );
     const t = await contract.methods.Identify().call();

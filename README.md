@@ -5,6 +5,8 @@
 
 ## Healthify is the next generation of healthcare. The platform stores data on the blockchain with the help of smart contracts
 
+Healthify is a decentralized hospital management system built on blockchain using the Celo network. Patients can use it to store their data on the blockchain and can add Doctors to their accounts and get treatment details authorized by their doctors. Also with information like drugs prescribed and bill amount being stored on the blockchain, it would be impossible to tamper with these details
+
 ![image](https://user-images.githubusercontent.com/57835412/148812025-c82c0afb-cdb7-4435-8b67-d8e58b810ebf.png)
 
 ![image](https://user-images.githubusercontent.com/57835412/148813269-b7f1dde9-3029-4546-a5ef-700175e2f3df.png)

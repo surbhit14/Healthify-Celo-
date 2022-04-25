@@ -4,7 +4,7 @@ pragma solidity >=0.4.0 <0.9.0;
 //pragma solidity ^0.4.19;
 pragma experimental ABIEncoderV2;
  
-contract Test {
+contract Healthify_Contract {
     // Paitent Structure here 
     struct paitent {           
         string name;

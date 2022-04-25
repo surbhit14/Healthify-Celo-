@@ -6,7 +6,7 @@ import Home from "./Home";
 import Register from "./Register";
 import Doctor from "./Doctor";
 import Patient from "./Patient";
-import test2 from "./contract/Test.json";
+import healthify_contract from "./contract/Healthify_Contract.json";
 
 import "./assets/scss/style.scss";
 
@@ -38,7 +38,7 @@ function App() {
           // const Vault=new kit.web3.eth.Contract(test.abi,"0xecEFEcf20Df6cc4954205Ef211a428eAc8C2A6Ed")
 
           const contr = new kit.web3.eth.Contract(
-            test2,
+            healthify_contract,
             "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
           );
           // console.log(kit.defaultAccount);
