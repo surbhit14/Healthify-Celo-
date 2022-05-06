@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.0 <0.9.0;
-
-//pragma solidity ^0.4.19;
 pragma experimental ABIEncoderV2;
  
 contract Healthify_Contract {
@@ -16,7 +14,7 @@ contract Healthify_Contract {
         uint[] doctors;
      }
     
-    mapping (uint => uint ) type_user;//check if user type_user
+    mapping (uint => uint ) type_user;//check user type
     mapping (uint => paitent ) p_info;//mapping from id to patient struct
     mapping (address => uint) public addresstoId;//mapping from address to id
     uint[] public ids;

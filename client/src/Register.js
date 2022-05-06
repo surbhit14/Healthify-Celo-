@@ -86,19 +86,6 @@ function Register() {
     // Call API to create patient
   }
 
-  // const register = async function () {
-  //   const receipt = await contract.methods
-  //     .addPatientInfo(25, "fifrefel", "adefefr5", 20, "A+")
-  //     .send({
-  //       from: address,
-  //     });
-  //   console.log(receipt);
-  // };
-
-  const reg = function () {
-    history.push("/patient");
-  };
-
   return (
     <Layout>
       <section className="pt-5">

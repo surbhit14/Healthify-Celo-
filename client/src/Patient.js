@@ -3,9 +3,8 @@ import { UserContext } from "./UserContext";
 import healthify_contract from "./contract/Healthify_Contract.json";
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
-let erc20Abi = require("./erc20Abi.json");
 const ERC20_DECIMALS = 18;
-const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
+
 
 function Patient() {
   const { address, web3, contract1 } = useContext(UserContext);
@@ -81,31 +80,7 @@ function Patient() {
     });
   };
 
-  // const getDetail = async () => {
-  //   // console.log(address);
-  //   let kit = ContractKit.newKitFromWeb3(web3);
-  //   contract = new kit.web3.eth.Contract(
-  //     healthify_contract,
-  //     "0xaAc86611a1AF8cFf09a0b8074fa429dA58D5Fe0C"
-  //   );
-  //   const t = await contract.methods.Identify().call();
 
-  //   if (t !== 0) {
-  //     uid = await contract.methods.addresstoId(address).call();
-  //     // console.log(web3);
-  //     const res = await contract.methods.getPatientInfo(uid).call();
-  //     setName(res[0]);
-  //     setAddr(res[1]);
-  //     setPhn(res[2]);
-  //     setBld(res[3]);
-  //     setTreatments(res[4]);
-  //     setDoctors(res[5]);
-
-  //     getBalance();
-  //   }
-  // };
-
-  // getDetail()
   useEffect(async () => {
     let kit = ContractKit.newKitFromWeb3(web3);
     contract = new kit.web3.eth.Contract(
@@ -210,7 +185,7 @@ function Patient() {
                           Phone: {doctor[3]}
                         </h6>
 
-                        <h6 className="p-2 text-secondary">DID #01</h6>
+                        {/* <h6 className="p-2 text-secondary">DID #01</h6> */}
                       </div>
                     </div>
                   ))}

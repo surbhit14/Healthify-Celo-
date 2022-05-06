@@ -4,9 +4,8 @@ import healthify_contract from "./contract/Healthify_Contract.json";
 
 import Layout from "./components/Layout";
 let ContractKit = require("@celo/contractkit");
-let erc20Abi = require("./erc20Abi.json");
 const ERC20_DECIMALS = 18;
-const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
+
 
 function Doctor() {
   const pidInputRef = useRef();
