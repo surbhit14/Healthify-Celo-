@@ -36,8 +36,6 @@ Healthify is a decentralized hospital management system built on blockchain usin
 - Front End App with React
 - Celo Developer SDK 
 
-- **This app was built for the "Celo YBlockChain Hackathon.". Please show your support by starring our repository.**
-
 ##### The Team
 
 * **@fabianferno** - [Twitter](https://twitter.com/FabianFerno), [GitHub](https://github.com/fabianferno)
